@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Program 2</title>
+    <script src="fireTruck.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="700" height="300" style="border:1px solid black;">
+        Your browser does not support the html 5 canvas element. Switch to a good browser.
+    </canvas>
+    <br/>
+    <div></div>
+</body>
+
+<script>
+    function setup() {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var slider = document.getElementById('slider1');
+        var x = 200;
+        var y = 175;
+        var fireTruck = new FireTruck(context, x, y);
+
+        window.requestAnimationFrame(draw);
+
+        function drawBackground() {
+            context.fillStyle = '#3a85ff';
+            context.fillRect(0, 0, 700, 165);
+            drawCloud(120, 70);
+            drawCloud(145, 70);
+            drawCloud(350, 50);
+            context.fillStyle = '#ffdc5e';
+            context.beginPath();
+            context.arc(630, 50, 25, 0, 2 * Math.PI, true);
+            context.fill();
+            drawCloud(580, 60);
+            drawCloud(605, 60);
+            context.fillStyle = '#39ad26';
+            context.fillRect(0, 165, 700, 135);
+            context.fillStyle = '#424242';
+            context.fillRect(0, 210, 700, 50);
+        }
+
+        function drawCloud(x, y) {
+            context.beginPath();
+            context.fillStyle = 'white';
+            context.arc(x - 23, y + 6, 22, 0, 2 * Math.PI, true);
+            context.fill();
+            context.beginPath();
+            context.arc(x, y, 25, 0, 2 * Math.PI, true);
+            context.fill();
+            context.beginPath();
+            context.arc(x + 23, y + 6, 22, 0, 2 * Math.PI, true);
+            context.fill();
+        }
+
+        function draw() {
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+            fireTruck.draw();
+
+            window.requestAnimationFrame(draw);
+        }
+    }
+
+    window.onload = setup;
+
+</script>
+
+</html>
